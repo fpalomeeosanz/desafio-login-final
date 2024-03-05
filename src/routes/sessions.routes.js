@@ -36,10 +36,14 @@ router.post('/register', async (req,res)=>{
 })
 
 //LOGIN > PRODUCTS
-router.post('/login', async (req,res)=>{
+router.post('/login', async  (req,res)=>{
     const {email, password} = req.body;
     const user = await userModel.findOne({email,password});
-  
+    
+    if(user.email === "adminCoder@coder.com" + user.password === "adminCod3r123"){
+        res.render("/neverGonnaGiveYouUp")
+    }
+
     if(!user){
        return res.status(400).send({
             status:"error",
@@ -56,6 +60,7 @@ router.post('/login', async (req,res)=>{
         payload: req.session.user,
         message:"Mi primer Login!!"
     })
+    
 })
 
 //LOGOUT
